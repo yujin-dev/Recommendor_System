@@ -43,49 +43,46 @@ def runner(func):
         kwargs = dict(bound_arguments.arguments.items())
         process = func(**kwargs)
         verbose = kwargs.get('verbose', True)
-        kwargs.pop('verbose')
         breakpoint = kwargs.get('breakpoint', False)
-        kwargs.pop('breakpoint')
         tag = kwargs.get('tag', func.__name__)
+        final_result = kwargs.get('final_result', True)
         os.makedirs(os.path.join(cache_folder, tag), exist_ok=True)
-        kwargs.pop('tag')
         steps = {}
         for num, (name, run) in enumerate(process.items()):
             if not (isinstance(run, list) or isinstance(run, tuple)):
                 raise TypeError(f"{run} should be set tuple or list")
             filename = os.path.join(tag, f"{str(name)}.pkl")
-
-            if num == 0:
-                steps[str(name)] = cache_func(run[0], filename, **kwargs)
+            if len(run) == 1:
+                steps[str(name)] = run[0]()
             else:
-                if len(run) == 1:
-                    steps[str(name)] = run[0]()
+                assert len(run) == 2, f"{run} only with function and params"
+                f, p = run
+                if isinstance(p, list):
+                    for n, v in enumerate(p):
+                        if isinstance(v, Step):
+                            p[n] = steps[str(v)]
+                    steps[str(name)] = cache_func(f, filename, *p)
+                elif isinstance(p, dict):
+                    for k, v in p.items():
+                        if isinstance(v, Step):
+                            p[k] = steps[str(v)]
+                    steps[str(name)] = cache_func(f, filename, **p)
                 else:
-                    assert len(run) == 2, f"{run} only with function and params"
-                    f, p = run
-                    if isinstance(p, list):
-                        for n, v in enumerate(p):
-                            if isinstance(v, Step):
-                                p[n] = steps[str(v)]
-                        steps[str(name)] = cache_func(f, filename, *p)
-                    elif isinstance(p, dict):
-                        for k, v in p.items():
-                            if isinstance(v, Step):
-                                p[k] = steps[str(v)]
-                        steps[str(name)] = cache_func(f, filename, **p)
-                    else:
-                        if isinstance(p, Step): # 결과가 tuple
-                            res = steps[str(p)]
-                            if isinstance(res, tuple):
-                                steps[str(name)] = cache_func(f, filename, *res)
-                            else:
-                                steps[str(name)] = cache_func(f, filename, res)
+                    if isinstance(p, Step): # 결과가 tuple
+                        res = steps[str(p)]
+                        if isinstance(res, tuple):
+                            steps[str(name)] = cache_func(f, filename, *res)
                         else:
-                            steps[str(name)] = cache_func(f, filename, p)
+                            steps[str(name)] = cache_func(f, filename, res)
+                    else:
+                        steps[str(name)] = cache_func(f, filename, p)
             if verbose:
                 func_name = run[0].__name__
                 print(f"<---------------------- {str(name)} : {func_name} ---------------------->\n{steps[str(name)]}\n")
             if breakpoint == str(name):
                 return steps[str(name)]
-        return steps[str(name)] # 마지막 값을 반환
+        if final_result:
+            return steps[str(name)] # 마지막 값을 반환
+        else:
+            return steps
     return call

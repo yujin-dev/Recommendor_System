@@ -41,7 +41,7 @@ def make_train_data(tokenized_doc):
 @runner
 def main(data, breakpoint=False, verbose=False, tag="LDA_fetch20groups"):
     return {
-        Step(1): (preprocess, ),
+        Step(1): (preprocess, data),
         Step(2): (get_stopwords, ),
         Step(3): (remove_stopwords, [Step(1), Step(2)]),
         Step(4): (make_train_data, Step(3)),

@@ -54,5 +54,5 @@ people 0.011677682
 [11314 rows x 3 columns]
 ```
 
-### Perplexity낮을수록 좋은 모델)  
+### Perplexity
 -10.740998381432055

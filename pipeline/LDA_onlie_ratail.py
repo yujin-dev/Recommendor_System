@@ -35,7 +35,7 @@ def make_train_data(data):
 @runner
 def main(data, breakpoint=False, verbose=False, tag="LDA_online_ratail"):
     return {
-        Step(1): (preprocess, ),
+        Step(1): (preprocess, data),
         Step(2): (split_train_test, Step(1)),
         Step(3): (train_groupby, Step(2)),
         Step(4): (make_train_data, Step(3)),
