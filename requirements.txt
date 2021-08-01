@@ -1,7 +1,9 @@
 gensim
 pyLDAvis
 nltk
+surprise
 scikit-learn
+seaborn
 pandas
 numpy
 matplotlib
