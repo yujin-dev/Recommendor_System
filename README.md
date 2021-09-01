@@ -1,6 +1,6 @@
 # Recommendor System
 
-러닝스푼즈 Recommendor System 강의를 듣고 실습을 정리
+러닝스푼즈 Recommendor System 강의를 듣고 실습을 정리한
 
-## LDA
-## SVD
+### Support Vector Decomposition( SVD )
+### Matrix Factorization( MF )
