@@ -1,0 +1,6 @@
+unique_id: yjdevtestrocket
+region: us-east-1
+sagemaker_role_arn: arn:aws:iam::<account>:role/SageMakerTest
+training_image_ecr_path: <account>.dkr.ecr.us-east-1.amazonaws.com/snf-recommender-lab
+snf_ef_role_arn: arn:aws:iam::<account>:role/SnowflakeAPIGatewayTest
+snf_ef_role_principal: arn:aws:sts::<account>:assumed-role/SnowflakeAPIGatewayTest/snowflake
