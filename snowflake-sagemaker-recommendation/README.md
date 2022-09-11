@@ -1,4 +1,4 @@
-# Recommendation Engine Service with
+# Recommendation Engine Service
 [Build a Recommendation Engine with AWS SageMaker](https://quickstarts.snowflake.com/guide/recommendation_engine_aws_sagemaker/index.html?index=..%2F..index#0)에 따라 `Snowflake`, `SageMaker`를 사용하여 간단한 영화 추천 시스템을 구현 
 
 
