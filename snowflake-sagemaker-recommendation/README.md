@@ -137,8 +137,11 @@ TRAIN_AND_GET_RECOMMENDATIONS('TEST.PUBLIC.RATINGS_TRAIN_DATA','TEST.PUBLIC.USER
 arn:aws:sagemaker:us-east-1:123456789012:training-job/training-job-20220911013315
 */
 ```
-SageMaker에서 확인하면 training job이 생성되었다.
+SageMaker에서 확인하면 training job이 생성되었다.  
 ![](img/2022-09-11-10-36-53.png)
+
+결과값은 기본적으로 S3에 저장된다.  
+![](img/2022-09-11-11-22-03.png)
 
 실행 결과인 예측값이 `user_movie_recommendations` 테이블에 저장되었다.   
 ```sql
