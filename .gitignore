@@ -1,0 +1,13 @@
+lecture-note/data/avazu-ctr-prediction/
+lecture-note/data/ml-100k/
+lecture-note/data/ml-latest-small/
+lecture-note/data/online-retail/
+lecture-note/data/transaction.csv
+_cache/
+venv/
+.idea/
+__pycache__/
+.serverless/
+LICENSE
+*.log*
+.DS_Store

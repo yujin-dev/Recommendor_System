@@ -1,9 +1,0 @@
-data/avazu-ctr-prediction/
-data/ml-100k/
-data/ml-latest-small/
-data/online-retail/
-data/transaction.csv
-_cache/
-venv/
-.idea/
-__pycache__/
